@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="main.css" rel="stylesheet" type="text/css" media="all">
+
+  </head>
+  <body>
+    <header class="row">
+      <div class="titulo-sistema col-12">
+        <h1>Administrador de Listados</h1>
+      </div> 
+    </header>
+      <div class="container-fluid row">
+        <div class="row gy-4">
+
+          <div class="col-1"></div>
+
+          <div class="todo-task-container col-3">
+            <div class="row">
+              <div class="col-12">
+                <h2>Mis Listas</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <ul id="listado-list">
+                  <li>Lista 1</li>
+                  <li>Lista 2</li>
+                  <li>Lista 3</li>
+                </ul> 
+                <form action=""> 
+                  <button class="boton-lista"
+                  aria-label="crear nueva lista">+</button>
+                  <input
+                  type="text"
+                  class="nueva-lista"
+                  placeholder="inserte nombre de lista"
+                  aria-label="inserte nombre de lista"/>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-1"></div>
+
+          <div class="todo-listado-container col-5">
+
+            <div class="todo-listado row">
+
+              <div class="todo-header col-12">
+                <div class="row">
+                  <h2 class="col-7">Placeholder Header</h2>  
+                  <p class="tareas-pendientes-count col-5">x tareas pendientes</p>
+                </div>
+              </div>
+
+              <div class="todo-body col-12">
+                <div class="tareas">
+                  <div class="tarea">
+                    <input 
+                    type="checkbox"
+                    id="tarea-1"/>
+                    <label for="tarea-1">
+                    <span class="checkbox-custom"></span>
+                      Crear aplicacion TO-DO
+                    </label>
+                  </div>
+                  <!-- Tarea 1--> 
+
+                  <div class="tarea">
+                    <input 
+                    type="checkbox"
+                    id="tarea-2"/>
+                    <label for="tarea-2">
+                    <span class="checkbox-custom"></span>
+                      Leer mis mails
+                    </label>
+                  </div>
+                  <!-- Tarea 2-->
+
+                  <div class="tarea"> 
+                    <input 
+                    type="checkbox"
+                    id="tarea-3"/>
+                    <label for="tarea-3">
+                    <span class="checkbox-custom"></span>
+                      Organizar lista
+                    </label>
+                    <!-- Tarea 3-->
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="crear-nueva-tarea col-12">
+                <form action=""> 
+                  <button class="boton-tarea"
+                  aria-label="crear nueva tarea">+</button>
+                  <input
+                  type="text"
+                  class="nueva-tarea"
+                  placeholder="inserte tarea"
+                  aria-label="inserte tarea"/>
+                </form>
+              </div>
+
+              <div class="eliminar-tareas row">
+                <button class="btn borrar col-6">Eliminar tareas completadas</button>
+                <button class="btn borrar col-6">Eliminar Lista</button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

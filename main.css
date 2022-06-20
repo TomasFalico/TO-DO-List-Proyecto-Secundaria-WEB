@@ -1,0 +1,110 @@
+:root{
+    --clr-primario: rgba(64, 61, 245, 0.925);
+    --clr-background-contrast: white;
+    --clr-list-header:rgba(128, 128, 128, 0.452);
+    --clr-task-placeholder:gray;
+    --clr-standard-fontsize:1.5rem;
+}
+header{
+    padding: 1vw 0 2vw 30vw;
+}
+
+body{
+    background-color: var(--clr-primario);
+    font-weight: 300;
+    font-size: var(--clr-standard-fontsize);
+    font-family: 'Work Sans', sans-serif;
+}
+
+.todo-task-container{
+    color:var(--clr-background-contrast);
+}
+
+.todo-task-container h2{
+    font-weight: bold;
+    padding: 1vw 0 1vw 1vw;
+}
+
+.todo-listado-container{
+    
+}
+
+.todo-listado-container h2{
+    font-weight: bold;
+}
+
+#listado-list li{
+    margin: 0.4vw 0 0.4vw 0;
+}
+
+.boton-lista, .boton-tarea{
+    border: none;
+    background-color: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.boton-lista{
+    color: var(--clr-background-contrast);
+}
+
+.boton-tarea{
+    color: var(--clr-primario);
+}
+
+.nueva-lista, .nueva-tarea{
+        background-color: transparent;
+        outline: none;
+        outline-style: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+}
+
+.nueva-lista{
+    color: var(--clr-background-contrast);
+    border-bottom: solid var(--clr-background-contrast) 1px;
+}
+
+.nueva-tarea{
+    color: var(--clr-task-placeholder);
+    border-bottom: solid var(--clr-task-placeholder) 1px;
+}
+
+.nueva-tarea::placeholder{
+    color: var(--clr-task-placeholder);
+    opacity: 0.7;
+}
+
+.nueva-lista::placeholder{
+    color: var(--clr-background-contrast);
+    opacity: 0.4;
+}
+
+.todo-header{
+    background-color: var(--clr-list-header);
+    padding: 2.5vw 0 1vw 1.5vw;
+}
+
+.todo-listado-container{
+    background-color: var(--clr-background-contrast);
+}
+
+.tareas div{
+    padding: 0.4vw 0 0.5vw 0;
+}
+
+.crear-nueva-tarea{
+    padding: 0.5vw 0 0.5vw 0;
+}
+
+.tareas-pendientes-count{
+    font-size: 1rem;
+    opacity: 0.5;
+    margin:auto;
+}
+
+.eliminar-tareas{
+    padding: 1vw 0 1vw 0;
+}
