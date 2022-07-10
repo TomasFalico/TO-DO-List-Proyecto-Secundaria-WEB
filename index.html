@@ -19,7 +19,7 @@
 
           <div class="col-1"></div>
 
-          <div class="todo-task-container col-3">
+          <div class="todo-listados-container col-3" >
             <div class="row">
               <div class="col-12">
                 <h2>Mis Listas</h2>
@@ -28,39 +28,41 @@
             <div class="row">
               <div class="col-12">
                 <ul id="listado-list">
-                </ul> 
-                <form action=""> 
-                  <button class="boton-lista"
-                  aria-label="crear nueva lista">+</button>
-                  <input
-                  type="text"
-                  class="nueva-lista"
-                  placeholder="inserte nombre de lista"
-                  aria-label="inserte nombre de lista"/>
-                </form>
+                </ul>
+                <div class="row"> 
+                  <form action="" data-new-lista-form onsubmit="return false"> 
+                    <button class="boton-lista"
+                    aria-label="crear nueva lista">+</button>
+                    <input
+                    type="text"
+                    class="nueva-lista"
+                    data-new-lista-input
+                    placeholder="inserte nombre de lista"
+                    aria-label="inserte nombre de lista"/>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="col-1"></div>
 
-          <div class="todo-listado-container col-5">
+          <div class="todo-task-container col-5" data-lista-tareas-container>
 
-            <div class="todo-listado row">
-
+            <div class="todo-task row">
               <div class="todo-header col-12">
                 <div class="row">
                   <div class="col-8">
-                  <h2>Placeholder Header</h2>  
+                  <h2 data-lista-tarea-titulo>Placeholder Header</h2>  
                   </div>
                   <div class="col-4">
-                    <p class="tareas-pendientes-count">x tareas pendientes</p>
+                    <p class="tareas-pendientes-count" data-tareas-contador>x tareas pendientes</p>
                   </div>
                 </div>
               </div>
 
               <div class="todo-body col-12">
-                <div class="tareas">
+                <div class="tareas" data-lista-tareas>
                   <div class="tarea">
                     <input 
                     type="checkbox"
@@ -109,23 +111,26 @@
                 </form>
               </div>
 
-              <div class="eliminar-tareas col-12">
-                <div class="row">
-                  <div class="col-6">
-                  <button class="btn-borrar">Eliminar tareas completadas</button>
-                  </div>
-                  <div class="col-6">
-                  <button class="btn-borrar col-6">Eliminar Lista</button>
-                  </div>
-                </div>
-              </div>
+            </div>
 
+
+            <div class="eliminar-tareas row">
+                <div class="col-6">
+                <button class="btn-borrar-tareas">Eliminar tareas completadas</button>
+                </div>
+                <div class="col-6">
+                <button class="btn-borrar-lista col-6">Eliminar Lista</button>
+                </div>
             </div>
           </div>
 
         </div>
       </div>
-    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/simplestorage.js@0.2.1/simpleStorage.min.js"></script>
     <script src="listados.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </main>
