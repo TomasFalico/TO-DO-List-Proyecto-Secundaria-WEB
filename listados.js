@@ -1,13 +1,22 @@
 //listado de listas 
 let listadoListasHTML = document.getElementById("listado-list");
 
+let listadoTareasHtml = document.querySelector("[data-lista-tareas]");
+
 //campo de entrada para ingresar nombre de lista
 let nombreNuevaLista = document.querySelector(".nueva-lista");
 
 //formulario para agregar lista compuesto por el boton "+" y el campo de entrada
 const formularioNuevaLista = document.querySelector('[data-new-lista-form]');
 
-//contiene todo el litado de tareas
+//boton para eliminar la lista seleccionada
+const btnBorrarLista = document.querySelector(".btn-borrar-lista");
+
+//-----------------------------------------------------------------------------
+
+const formularioNuevaTarea = document.querySelector('[data-new-tarea-form]');
+
+//contiene todo el listado de tareas
 const listaTareasContainerDisplay = document.querySelector("[data-lista-tareas-container]");
 
 //titulo h2 del listado tareas
@@ -19,8 +28,9 @@ const listaTareasContador = document.querySelector("[data-tareas-contador]");
 //contiene el listado de las tareas y el formulario de ingreso de tareas
 const listaTareasContainer = document.querySelector("[data-lista-tareas]");
 
-//boton para eliminar la lista seleccionada
-const btnBorrarLista = document.querySelector(".btn-borrar-lista");
+const nombreNuevaTarea = document.querySelector(".nueva-tarea");
+
+
 
 
 
@@ -46,6 +56,26 @@ btnBorrarLista.addEventListener("click", e => {
 });
 
 
+
+formularioNuevaTarea.addEventListener("submit", e=>{
+    var listadoListasWeb = getListadoListasStorage();
+    var listaSeleccionadaId = getIdListaSeleccionada();
+
+    //recorro listado de listas
+    for(i=0; i < listadoListasWeb.length; i++) {
+        if(listaSeleccionadaId === listadoListasWeb[i]["id"]){
+            //al encontrar la lista seleccionada, agrego la tarea a la lista de tareas
+            listadoListasWeb[i].task.push(nombreNuevaTarea.value);
+        }
+    }
+    //guardo la lista actualizada en cache
+    simpleStorage.set("listaListas", listadoListasWeb);
+    //vacio el campo de entrada de tarea
+    nombreNuevaTarea.value = null;
+    //reinicio la lista de tareas
+    generarListadoTareas();
+});
+
 //Evento que se triggerea al momento de ingresar datos en el formulario de creacion de listas
 formularioNuevaLista.addEventListener('submit', e =>{
     //Consigo el listado de listas actual
@@ -68,13 +98,15 @@ formularioNuevaLista.addEventListener('submit', e =>{
 //Funcion para crear un registro de la lista ingresada
 function crearLista(nombre){
     //Creo un id utilizando la fecha y horario actual
-    return { id: Date.now().toString(), name : nombre, task: []}
+    return { id: Date.now().toString(), name : nombre, task: ['hacer algo']}
 }
 
 //Evento que se triggerea cuando hacemos click en alguna lista del listado
 listadoListasHTML.addEventListener('click', e=>{
     //Verficio que se este haciendo click a uno de los item dentro del listado
     if (e.target.tagName.toLowerCase() === 'li'){
+        //Cambio el titulo del listado de tareas por el de la lista seleccionada
+        listaTareasTitulo.textContent = e.target.textContent;
         //Guardo el id del item seleccionado en cache
         simpleStorage.set("listaSeleccionadaId",e.target.dataset.listaId);
         //Vuelvo a generar el listado para resaltar el item seleccionado en la lista
@@ -111,6 +143,11 @@ function generarListadoListas(){
     })
 }
 
+function generarListadoTareas(){
+    //vacio el listado de tareas
+    limpiarElemento(listadoTareasHtml);
+}
+
 //Listado que se almacena en cache y almacena el ultimo id del listado que se selecciono
 function getIdListaSeleccionada(){
     return simpleStorage.get("listaSeleccionadaId");
@@ -120,6 +157,18 @@ function getIdListaSeleccionada(){
 function getListadoListasStorage(){
     return simpleStorage.get("listaListas");
 }
+
+function getListadoTareasStorage(){
+    var listaSeleccionadaId = getIdListaSeleccionada();
+    var listadoListas = getListadoListasStorage();
+    for(i=0; i < listadoListas.length; i++) {
+        //Si encuentro una lista que tiene el mismo id que la ultima lista seleccionada
+        if(listaSeleccionadaId === listadoListas[i]["id"]){
+            return listadoListas[i];
+        }
+    }
+}
+
 
 //Funcion generica para vaciar un elemnto
 function limpiarElemento(elemento){

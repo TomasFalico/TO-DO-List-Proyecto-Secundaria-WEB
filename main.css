@@ -1,64 +1,68 @@
-:root{
+:root {
     --clr-primario: rgba(64, 61, 245, 0.925);
     --clr-background-contrast: white;
-    --clr-list-header:rgba(128, 128, 128, 0.452);
-    --clr-task-placeholder:gray;
-    --clr-standard-fontsize:1.5rem;
+    --clr-list-header: rgba(128, 128, 128, 0.452);
+    --clr-tarea-placeholder: gray;
+    --clr-standard-fontsize: 1.5rem;
 }
-header{
+header {
     padding: 1vw 0 2vw 30vw;
 }
 
-
-html{
+html {
     min-height: 100%;
 }
 
-body{
+body {
     background-color: #d4418e;
     background-image: linear-gradient(315deg, #d4418e 0%, #0652c5 74%);
     font-weight: 300;
     font-size: var(--clr-standard-fontsize);
-    font-family: 'Work Sans', sans-serif;
+    font-family: "Work Sans", sans-serif;
 }
 
-
-.todo-listados-container{
-    color:var(--clr-background-contrast);
+.todo-listados-container {
+    color: var(--clr-background-contrast);
 }
 
-.todo-listados-container h2{
+.todo-listados-container h2 {
     font-weight: bold;
     padding: 1vw 0 1vw 1vw;
 }
 
-.todo-listados-container form{
-    display:flex;
+.todo-listados-container form {
+    display: flex;
 }
 
-.todo-task{
+.todo-tarea {
     background-color: var(--clr-background-contrast);
 }
 
-.todo-task-container{
+.todo-tarea-container {
     overflow: hidden;
 }
 
-.todo-task-container h2{
+.todo-tarea-container h2 {
     font-weight: bold;
 }
 
-.eliminar-tareas .btn-borrar-lista, .btn-borrar-tareas{
-    font-size: 0.7em;
-    font-weight: b;
-    color:var(--clr-background-contrast);
+.todo-tarea-container form {
+    padding-bottom: 1em;
 }
 
-#listado-list li{
+.eliminar-tareas .btn-borrar-lista,
+.btn-borrar-tareas {
+    font-size: 0.7em;
+    font-weight: b;
+    color: var(--clr-background-contrast);
+}
+
+#listado-list li {
     margin: 0.4vw 0 0.4vw 0;
 }
 
-.boton-lista, .boton-tarea{
+.boton-lista,
+.boton-tarea {
     border: none;
     background-color: inherit;
     font-weight: bold;
@@ -66,75 +70,75 @@ body{
     display: inline-block;
 }
 
-.boton-lista{
+.boton-lista {
     color: var(--clr-background-contrast);
 }
 
-.boton-tarea{
+.boton-tarea {
     color: var(--clr-primario);
 }
 
-.nueva-lista, .nueva-tarea{
-        background-color: transparent;
-        outline: none;
-        outline-style: none;
-        border-top: none;
-        border-left: none;
-        border-right: none;
+.nueva-lista,
+.nueva-tarea {
+    background-color: transparent;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
-.nueva-lista{
+.nueva-lista {
     color: var(--clr-background-contrast);
     border-bottom: solid var(--clr-background-contrast) 1px;
 }
 
-.nueva-tarea{
-    color: var(--clr-task-placeholder);
-    border-bottom: solid var(--clr-task-placeholder) 1px;
+.nueva-tarea {
+    color: var(--clr-tarea-placeholder);
+    border-bottom: solid var(--clr-tarea-placeholder) 1px;
 }
 
-.nueva-tarea::placeholder{
-    color: var(--clr-task-placeholder);
+.nueva-tarea::placeholder {
+    color: var(--clr-tarea-placeholder);
     opacity: 0.7;
 }
 
-.nueva-lista::placeholder{
+.nueva-lista::placeholder {
     color: var(--clr-background-contrast);
     opacity: 0.4;
 }
 
-.todo-header{
+.todo-header {
     background-color: var(--clr-list-header);
     padding: 2.5vw 0 1vw 1.5vw;
 }
 
-.tareas div{
+.tareas div {
     padding: 0.4vw 0 0.5vw 0.5vw;
-
 }
 
-.crear-nueva-tarea{
+.crear-nueva-tarea {
     padding: 0.5vw 0 0.5vw 0.9vw;
-
 }
 
-.tareas-pendientes-count{
+.tareas-pendientes-count {
     font-size: 1rem;
     opacity: 0.5;
 }
 
-.eliminar-tareas{
+.eliminar-tareas {
     padding: 1vw;
     text-align: center;
 }
 
-.btn-borrar-lista, .btn-borrar-tareas{
+.btn-borrar-lista,
+.btn-borrar-tareas {
     font-size: 1rem;
     opacity: 0.7;
-    background:none;
-    border:none; 
+    background: none;
+    border: none;
 }
 
-.lista-activa{
+.lista-activa {
     font-weight: bold;
 }
