@@ -78,6 +78,10 @@ body {
     color: var(--clr-primario);
 }
 
+.tarea-label{
+    margin-left: 0.2em;
+}
+
 .nueva-lista,
 .nueva-tarea {
     background-color: transparent;
