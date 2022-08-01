@@ -1,6 +1,7 @@
 //listado de listas 
 let listadoListasHTML = document.getElementById("listado-list");
 
+//listado de tareas
 let listadoTareasHtml = document.querySelector("[data-lista-tareas]");
 
 //campo de entrada para ingresar nombre de lista
@@ -17,6 +18,7 @@ const btnBorrarTareasCompletas = document.querySelector(".btn-borrar-tareas");
 
 //-----------------------------------------------------------------------------
 
+//formulario donde se hace el ingreso de tareas
 const formularioNuevaTarea = document.querySelector('[data-new-tarea-form]');
 
 //contiene todo el listado de tareas
@@ -31,19 +33,20 @@ const listaTareasContador = document.querySelector("[data-tareas-contador]");
 //contiene el listado de las tareas y el formulario de ingreso de tareas
 const listaTareasContainer = document.querySelector("[data-lista-tareas]");
 
+//input donde ingreso el nombre de una nueva tarea
 const nombreNuevaTarea = document.querySelector(".nueva-tarea");
 
-const listaDefault = { id: Date.now().toString(), name : "Listado por default ", task: ['Tarea Default']}
+//lista que se muetra por default si no hay ninguna lista presente
+const listaDefault = { id: "id_default", name : "Listado por default ", task: ['Tarea Default']}
 
+//Lista de listas default 
+var listadoListasWebDefault = [listaDefault];
+
+//Contador de tareas sin completar
 let cuentaTareasFaltantes = 0;
 
 
-listaTareasContador.innerText = "Tareas pendientes: " + cuentaTareasFaltantes;
-
-
-
-
-
+//Funcion para eliminar tareas completadas
 btnBorrarTareasCompletas.addEventListener("click", e =>{
     const listadoTareasCheck = $(':checkbox:checked');
     $('.tareas div').has('input:checkbox:checked').remove()
@@ -66,14 +69,18 @@ btnBorrarTareasCompletas.addEventListener("click", e =>{
         generarListadoTareas()
 });
 
-
-
 //Metodo para eliminar una lista del listado
 btnBorrarLista.addEventListener("click", e => {
     //Consigo el listado de listas actual guardado en cache
     var listadoListasWeb = getListadoListasStorage();
     //Consigo el id de la ultima lista seleccionada guardado en cache
     var listaSeleccionadaId = simpleStorage.get("listaSeleccionadaId");
+
+    if(listaSeleccionadaId == undefined){
+        alert("Debe hacer click en una lista para poder elimininarla");
+        return;
+
+    }
     //Recorro el listado 
     for(i=0; i < listadoListasWeb.length; i++) {
         //Si encuentro una lista que tiene el mismo id que la ultima lista seleccionada
@@ -89,16 +96,24 @@ btnBorrarLista.addEventListener("click", e => {
     generarListadoListas()
 });
 
-
-//Evento que se triggerea al mommento de ingresar datos en el formulario de creacion de tareas
+//Evento que se triggerea al momento de ingresar datos en el formulario de creacion de tareas
 formularioNuevaTarea.addEventListener("submit", e=>{
+    //Consigo el listado de listas guardado en cache
     var listadoListasWeb = getListadoListasStorage();
+    //Consigo el id de la lista seleccionada
     var listaSeleccionadaId = getIdListaSeleccionada();
+
+    //Verifico si el usuario ingreso informacion en el campo de entrada
+    if(nombreNuevaTarea.value == ""){
+        //En el caso de que no se haya ingresado informacion, aviso por pantalla
+        alert("Debe ingresar el nombre de la tarea");
+        return;
+    }
 
     //recorro listado de listas
     for(i=0; i < listadoListasWeb.length; i++) {
         if(listaSeleccionadaId === listadoListasWeb[i]["id"]){
-            //al encontrar la lista seleccionada, agrego la tarea a la lista de tareas
+            //al encontrar la lista seleccionada, agrego la tarea a su lista de tareas
             listadoListasWeb[i].task.push(nombreNuevaTarea.value);
         }
     }
@@ -115,7 +130,10 @@ formularioNuevaLista.addEventListener('submit', e =>{
     //Consigo el listado de listas actual
     var listadoListasWeb = getListadoListasStorage();
     //Si no se ingresa ningun dato, no se hace nada - TO-DO: Crear una alerta que le avise esto al usuario
-    if(nombreNuevaLista.value == null || nombreNuevaLista.value === '')return;
+    if(nombreNuevaLista.value == null || nombreNuevaLista.value === ''){
+        alert("Debe ingresar el nombre de su lista");
+        return;
+    }
     //Creo un elemento lista con el nombre de la lista ingresada
     const lista = crearLista(nombreNuevaLista.value);
     //Agrego el elemnto a nuestra lista de listados general
@@ -129,7 +147,6 @@ formularioNuevaLista.addEventListener('submit', e =>{
     nombreNuevaLista.value = null;
 });
 
-
 //Funcion para crear un registro de la lista ingresada
 function crearLista(nombre){
     //Creo un id utilizando la fecha y horario actual
@@ -140,8 +157,6 @@ function crearLista(nombre){
 listadoListasHTML.addEventListener('click', e=>{
     //Verficio que se este haciendo click a uno de los item dentro del listado
     if (e.target.tagName.toLowerCase() === 'li'){
-        //Cambio el titulo del listado de tareas por el de la lista seleccionada
-        listaTareasTitulo.textContent = e.target.textContent;
         //Guardo el id del item seleccionado en cache
         simpleStorage.set("listaSeleccionadaId",e.target.dataset.listaId);
         //Vuelvo a generar el listado para resaltar el item seleccionado en la lista
@@ -153,50 +168,30 @@ listadoListasHTML.addEventListener('click', e=>{
 //Funcion encargada de generar el listado de listas
 function generarListadoListas(){
 
-    //vacio el listado
+    //vacio el listado de listas
     limpiarElemento(listadoListasHTML);
 
     //Consigo la lista de listados creados hasta el momento
     let listadoListas = getListadoListasStorage();
-    console.log(listadoListas)
-    if (listadoListas != null){
-        listadoListas.forEach(lista =>{
-            //creo el item de listado
-            const li = document.createElement('li');
-            //le asigno un id
-            li.dataset.listaId = lista.id;
-            //le agrego la clase nombre-lista
-            li.classList.add("nombre-lista");
-            //inserto el nombre de la lista
-            li.innerText = lista.name;
-            //Si el id de la lista es un id que fue seleccionado de forma previa
-            if (lista.id === getIdListaSeleccionada()){
-                //agrego una clase para resaltar lista
-                li.classList.add("lista-activa");
-            }
 
-            //agrego item de listado a nuestro listado de listas
-            listadoListasHTML.append(li);
-        })
-    }
-    else{
-            //creo el item de listado
-            const li = document.createElement('li');
-            //le asigno un id
-            li.dataset.listaId = listaDefault.id;
-            //le agrego la clase nombre-lista
-            li.classList.add("nombre-lista");
-            //inserto el nombre de la lista
-            li.innerText = listaDefault.name;
-            //Si el id de la lista es un id que fue seleccionado de forma previa
-            if (listaDefault.id === getIdListaSeleccionada()){
-                //agrego una clase para resaltar lista
-                li.classList.add("lista-activa");
-            }
-
-            //agrego item de listado a nuestro listado de listas
-            listadoListasHTML.append(li);
-    }
+    //recorro la lista de listadops
+    listadoListas.forEach(lista =>{
+        //creo el elemento listado
+        const li = document.createElement('li');
+        //le asigno un id
+        li.dataset.listaId = lista.id;
+        //le agrego la clase nombre-lista
+        li.classList.add("nombre-lista");
+        //inserto el nombre de la lista
+        li.innerText = lista.name;
+        //Si el id de la lista es un id que fue seleccionado de forma previa
+        if (lista.id === getIdListaSeleccionada()){
+            //agrego una clase para resaltar lista
+            li.classList.add("lista-activa");
+        }
+        //agrego item de listado a nuestro listado de listas
+        listadoListasHTML.append(li);
+    })
 }
 
 //Fucion encargada de generar el listado de tareas
@@ -206,10 +201,21 @@ function generarListadoTareas(){
     //Consigo el listado de listas y el id de la lista seleccionada
     var listadoListasWeb = getListadoListasStorage();
     var listaSeleccionadaId = getIdListaSeleccionada();
+
+    if(listaSeleccionadaId == undefined){
+        listaTareasContainerDisplay.classList.add("ocultar");
+        return;
+    }
+    else{
+        listaTareasContainerDisplay.classList.remove("ocultar");
+    }
+
     //Recorro el listado de listas
     for(i=0; i < listadoListasWeb.length; i++) {
         //Checkeo si alguna lista es la lista seleccionada
         if(listaSeleccionadaId === listadoListasWeb[i]["id"]){
+            //Cambio el titulo del listado de tareas por el de la lista seleccionada
+            listaTareasTitulo.textContent = listadoListasWeb[i].name;
             //Recorro la lista de tareas del elemento que cumple con la anterior condicion
             for(j=0; j < listadoListasWeb[i]["task"].length; j++)
             {
@@ -232,6 +238,7 @@ function generarListadoTareas(){
             }
         }
     }
+
     //Cuenta la cantidad de tareas sin checkear
     cuentaTareasFaltantes = $('input[type=checkbox]').not(':checked').length;
     //Ingreso el numero de tareas en mi contador por default
@@ -263,6 +270,15 @@ function limpiarElemento(elemento){
     }
 }
 
+//Verifico si hay algun listado guardado en cache
+if(getListadoListasStorage() == undefined){
+    //En el caso de que no haya un listado guardado, inicializo mi sistema con una lista default
+    simpleStorage.set("listaListas", listadoListasWebDefault);
+}
+
+//Vacio la variable donde guardo el id de la lista seleccionada para que la pagina inicie sin un listado de tareas abierto
+simpleStorage.set("listaSeleccionadaId", undefined);
 
 generarListadoListas();
+
 generarListadoTareas();

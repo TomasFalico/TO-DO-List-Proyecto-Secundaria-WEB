@@ -21,6 +21,10 @@ body {
     font-family: "Work Sans", sans-serif;
 }
 
+.ocultar{
+    display:none;
+}
+
 .todo-listados-container {
     color: var(--clr-background-contrast);
 }
